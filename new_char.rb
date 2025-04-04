@@ -41,6 +41,24 @@ def shopping(selling, character)
   selling.each_with_index do |item, index|
     puts "#{index + 1}. #{item.name} - #{item.price} coins (quatitify: #{item.quantity})"
   end
+  puts "Please type the number of the item you want to buy, or type 'exit' to leave the shop."
+  choice = gets.chomp.downcase
+  return if choice == 'exit'
+  if choice.to_i.between?(1, selling.size)
+    item = selling[choice.to_i - 1]
+    if character.money >= item.price && item.quantity > 0
+      character.money -= item.price
+      item.quantity -= 1
+      character.inventory << item
+      puts "You bought a #{item.name} for #{item.price} coins. You have #{character.money} coins left."
+    else
+      puts "You can't afford that or it's out of stock."
+    end
+  else
+    puts "Invalid choice. Please try again."
+  end
+
+  shopping(selling, character) # Recursion to allow multiple purchases
 end
 
 shopping(selling, main_character)
