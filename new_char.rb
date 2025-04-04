@@ -1,0 +1,46 @@
+require_relative 'Character'
+require_relative 'Item'
+
+puts "Hi, let's create a new character!"
+puts "What is your character's name?"
+name = gets.chomp.capitalize
+puts "Ok let's generate your stats!"
+power = rand(8..20)
+agility = rand(8..20)
+intelligence = rand(8..20)
+
+main_character = Character.new(name, power, agility, intelligence)
+puts "Your character has been created!"
+puts "Name: #{main_character.name}"
+puts "Power: #{main_character.power}"
+puts "Agility: #{main_character.agility}"
+puts "Intelligence: #{main_character.intelligence}"
+
+puts "Now let's go shopping!"
+puts "You have #{main_character.money} coins."
+puts "What would you like to buy?"
+
+selling = [
+  sword = Item.new("Sword", 15, "weapon1", rand(1..3)),
+  shield = Item.new("Shield", 11, "weapon2", rand(1..2)),
+  helmet = Item.new("Helmet", 6, "head", rand(1..3)),
+  hatchet = Item.new("Hatchet", 10, "weapon1", rand(1..2)),
+  leather_armor = Item.new("Leather Armor", 13, "body", rand(1..4)),
+  studded_leather_armor = Item.new("Studded Leather Armor", 18, "body", rand(1..2)),
+  stiff_boots = Item.new("Stiff Boots", 9, "feet", rand(1..3)),
+  hide_boots = Item.new("Hide Boots", 12, "feet", rand(1..2)),
+  mace = Item.new("Mace", 11, "weapon1", rand(1..2)),
+  dagger = Item.new("Dagger", 8, "weapon2", rand(1..3)),
+  chain_mail = Item.new("Chain Mail", 21, "body", rand(1..2)),
+]
+
+def shopping(selling, character)
+  puts "Welcome! You have #{character.money} coins."
+  puts "What will you buy?"
+
+  selling.each_with_index do |item, index|
+    puts "#{index + 1}. #{item.name} - #{item.price} coins (quatitify: #{item.quantity})"
+  end
+end
+
+shopping(selling, main_character)
