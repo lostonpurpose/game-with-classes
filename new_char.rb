@@ -73,6 +73,14 @@ def shopping(selling, character)
       character.money -= item.price
       item.quantity -= 1
       character.inventory << item
+      body_part_ok = item.body_part
+      if character.equipped_items[body_part_ok].nil?
+        character.equipped_items[body_part_ok] = item
+        puts "You equipped the #{item.name} on your #{body_part_ok}."
+        puts character.equipped_items
+      end
+
+
       puts "You bought a #{item.name} for #{item.price} coins."
       puts "You have #{character.money} coins left. Remaining quantity of #{item.name}: #{item.quantity}"
     else
