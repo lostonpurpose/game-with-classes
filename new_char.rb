@@ -41,7 +41,19 @@ def shopping(selling, character)
   # Display the items for sale
   selling.each_with_index do |item, index|
     puts "#{index + 1}. #{item.name} - #{item.price} coins (quantity: #{item.quantity})"
+
+    
+      
   end
+
+  sorted_prices = []
+  
+  selling.map do |item|
+        sorted_prices << item.price
+  end
+
+
+  p sorted_prices.sort!
 
   # Prompt for user input
   puts "Please type the number of the item you want to buy, or type 'exit' to leave the shop."
@@ -68,6 +80,10 @@ def shopping(selling, character)
     end
   else
     puts "Invalid choice. Please try again."
+  end
+
+  if character.money < sorted_prices[0]
+    return puts "You don't have enough money to buy anything else."
   end
 
   # Recursively call the shopping method to allow multiple purchases
